@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--http://localhost:8080/index.png -->
+<head>
+    <meta charset="UTF-8">
+    <title>我的资源-文件上传</title>
+</head>
+<body>
+   我的资源
+   <hr/>
+    <img alt = "image" src="images/index.png">
+   <!--action 对应接口方法 -->
+    <form action="/app/uploadfile" method="post" enctype="multipart/form-data">
+        <!--filename 对应接口参数名 必须一致 -->
+        上传文件:<input type="file" name="filename"/>
+        <input type="submit" title="提交"/>
+    </form>
+</body>
+</html>
