@@ -11,6 +11,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * ClassName App
@@ -22,6 +23,7 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 @ServletComponentScan //在SpringBoot启动时 扫描@WebServlet注解，并将该类实例化
 @MapperScan("com.ywf.mapper")           // mybaties Mapper接口扫描
+@EnableScheduling     // 定时器注解
 public class App {
     public static void main(String[] args) {
         SpringApplication.run(App.class, args);

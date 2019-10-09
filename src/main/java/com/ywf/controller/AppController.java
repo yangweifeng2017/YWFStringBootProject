@@ -6,12 +6,12 @@ import com.ywf.pojo.User;
 import com.ywf.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
@@ -38,9 +38,11 @@ public class AppController {
     @RequestMapping("/helloworld")
     @ResponseBody // 自动做json格式转换
     public Map<String,Object> showHelloWorld(){
+        System.out.println("eeeeqqqq");
         Map<String,Object> map = new HashMap<>();
         map.put("111","helloworld");
         map.put("222","yangweifeng");
+        map.put("333","helloworl1111d");
         return map;
     }
 
@@ -107,5 +109,24 @@ public class AppController {
         }
         return jsonObject.toJSONString();
     }
-
+    /**
+     * 添加用户
+     * http://localhost:8080/app/save
+     * 开启对user对象的数据校验
+     * bindingResult 封装了校验的结果
+     * @ModelAttribute("user") 显示指定对象名称
+     * @return
+     */
+    @RequestMapping(value = "/save",method = RequestMethod.POST)
+    @ResponseBody
+    public String saveUser(@RequestBody @ModelAttribute("user") @Valid User user, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){ //true 为校验存在不合法的 不成功
+            List<ObjectError> allErrors = bindingResult.getAllErrors();
+            for (ObjectError error: allErrors){
+                System.out.println(error.getObjectName());
+            }
+        }
+        System.out.println(user);
+        return "OK";
+    }
 }
